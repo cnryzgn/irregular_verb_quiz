@@ -104,7 +104,8 @@ function Exam() {
 
         const correctAnswer = irregularVerbs.find(v => v[currentQuestion.pickedVerbVersion as keyof VerbForm] === currentQuestion.pickedVerb)?.[currentQuestion.question.verbKey as keyof VerbForm];
 
-        const currentQuestionResult: ExamResult = {
+        // ExamResult = type
+        const currentQuestionResult: unknown = {
             answer: userAnswer.toLowerCase(),
             questionData: {
                 question: currentQuestion?.question,
