@@ -1,0 +1,41 @@
+Sayfalar
+--------
+
+=== Difficulty ===
+--------------------
+
+-> Beginner 
+------------
+    -> Süre limiti yok.
+    -> Sadece en yaygın kullanılan 50 verbs.
+    -> total 10 soru.
+    -> Result tüm sorular bittikten sonra.
+
+-> Intermediate 
+------------
+    -> Süre var ama 30sn.
+    -> En sık kullanılan 120 verbs.
+    -> total 30 soru.
+    -> Result tüm sorular bittikten sonra.
+
+-> Expert
+------------
+    -> Süre var. 10/15 sn.
+    -> 200+ verb.
+    -> total 50 soru.
+    -> Result tüm sorular bittikten sonra.
+
+-> Endless Blitz (Speedrunner mode)
+-----------------------------------
+    -> Süre var. Ne kadar olcağına sonra karar ver.
+    -> Tüm verbler.
+    -> Endless
+    -> Result her soru bitince gösterir (True/False) sonra diğer soru.
+
+
+-> Endless Zen (Cozy mode)
+----------------------------
+    -> Süre yok.
+    -> Tüm verbler.
+    -> Endless
+    -> Result her soru bitince gösterir (True/False) sonra diğer soru.

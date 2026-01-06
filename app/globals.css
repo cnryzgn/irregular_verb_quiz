@@ -1,26 +1,15 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* v4'te özel font veya renk tanımlarını buraya yapabilirsin */
+@theme {
+  --color-brand-deep: #020617;
+  --color-brand-light: #0f172a;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* Daha yumuşak bir radial gradient */
+  background: radial-gradient(circle at top left, #1e293b 0%, #020617 80%);
+  background-attachment: fixed;
+  color: #f1f5f9;
+  min-height: 100vh;
 }
