@@ -2,12 +2,16 @@ name: Deploy Next.js site to Pages
 
 on:
   push:
-    branches: ["main"] # veya kullandığınız ana dalın adı
+    branches: ["main"]
 
 permissions:
   contents: read
   pages: write
   id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -15,12 +19,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: 'npm'
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
       - name: Install dependencies
         run: npm install
+
       - name: Build with Next.js
         run: |
           if [ "${{ github.event.repository.name }}" = "${{ github.repository_owner }}.github.io" ]; then
@@ -29,10 +40,14 @@ jobs:
             export BASE_PATH="/${{ github.event.repository.name }}"
           fi
           npm run build
+        env:
+          # Bu kısım Next.js'in ortam değişkenini görmesini sağlar
+          BASE_PATH: ${{ github.event.repository.name == format('{0}.github.io', github.repository_owner) && '' || format('/{0}', github.event.repository.name) }}
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out # Next.js 'export' çıktısı buraya gider
+          path: ./out
 
   deploy:
     environment:

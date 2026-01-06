@@ -1,12 +1,11 @@
 import type { NextConfig } from "next";
 /** @type {import('next').Next} */
 const nextConfig: NextConfig = {
-  output: 'export', // Statik site oluşturmayı sağlar
+  output: 'export',
   basePath: process.env.BASE_PATH || '',
   assetPrefix: process.env.BASE_PATH || '',
   images: {
-    unoptimized: true, // GitHub Pages standart görsel optimizasyonunu desteklemez
-  },
+    unoptimized: true, 
 };
 
 export default nextConfig;
