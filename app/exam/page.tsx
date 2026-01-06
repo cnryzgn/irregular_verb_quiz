@@ -104,17 +104,20 @@ function Exam() {
 
         const correctAnswer = irregularVerbs.find(v => v[currentQuestion.pickedVerbVersion as keyof VerbForm] === currentQuestion.pickedVerb)?.[currentQuestion.question.verbKey as keyof VerbForm];
 
-        // ExamResult = type
-        const currentQuestionResult: unknown = {
+        const currentQuestionResult: ExamResult = {
             answer: userAnswer.toLowerCase(),
             questionData: {
-                question: currentQuestion?.question,
+                question: currentQuestion?.question.question || "unknown",
                 shownVerb: currentQuestion?.pickedVerb || "unknown",
                 shownVerbForm: currentQuestion?.pickedVerbVersion || "unknown",
             },
             timeLeft: timeLeft,
             isInvalidAnswer: userAnswer.trim().toLowerCase() !== String(correctAnswer).toLowerCase(),
-            correctAnswer: String(correctAnswer)
+            correctAnswer: String(correctAnswer),
+            // Eksik olan ve hataya sebep olan alanlar:
+            currentQuestion: currentStep, // veya o anki index
+            totalQuestion: totalSteps,
+            completedQuestionLocations: [], // Şimdilik boş bir dizi veya mevcut veriyi verebilirsin
         }
 
         engine.current.updateExamResult(currentQuestionResult)
@@ -212,8 +215,8 @@ function Exam() {
                     {/* Subtle Background Effect */}
                     {status !== 'playing' && (
                         <div className={`absolute inset-0 opacity-5 ${status === 'correct' ? 'bg-green-500' :
-                                status === 'wrong' ? 'bg-red-500' :
-                                    'bg-orange-500'
+                            status === 'wrong' ? 'bg-red-500' :
+                                'bg-orange-500'
                             }`}></div>
                     )}
 
@@ -233,9 +236,9 @@ function Exam() {
                         {/* Ana Kelime */}
                         <div className="text-center mb-6">
                             <h2 className={`text-7xl md:text-9xl font-black tracking-tighter transition-all duration-500 ${status === 'correct' ? 'text-green-400' :
-                                    status === 'wrong' ? 'text-red-400' :
-                                        status === 'timeout' ? 'text-orange-400' :
-                                            'bg-gradient-to-r from-indigo-400 to-slate-400 bg-clip-text text-transparent'
+                                status === 'wrong' ? 'text-red-400' :
+                                    status === 'timeout' ? 'text-orange-400' :
+                                        'bg-gradient-to-r from-indigo-400 to-slate-400 bg-clip-text text-transparent'
                                 }`}>
                                 {currentQuestion.pickedVerb}
                             </h2>
