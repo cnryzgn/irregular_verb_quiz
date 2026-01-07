@@ -2,6 +2,7 @@ export interface QuestionData {
     question: string;
     shownVerb: string;
     shownVerbForm: string; // v1/v2/v3
+    turkishMeaning: string;
 }
 
 export interface ExamResult {

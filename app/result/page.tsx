@@ -8,6 +8,7 @@ interface ExamQuestion {
     answer: string;
     timeLeft: number;
     isInvalidAnswer: boolean; // Not: Genelde 'true' ise yanlış kabul edilir
+    correctAnswer: string,
     questionData: {
         shownVerb: string;
         shownVerbForm: string;
@@ -54,6 +55,7 @@ function Result() {
 
 
     if (isLoading) return <div className="text-white text-center mt-20">Loading...</div>;
+    console.log(examResult);
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen px-4 py-20 bg-[#0f172a]">
@@ -144,7 +146,7 @@ function Result() {
                                                     </svg>
                                                     <span className="uppercase opacity-60 mr-2">Correct Answer:</span>
                                                     <span className="text-sm font-bold text-white tracking-wide">
-                                                        {item.questionData.correctAnswer}
+                                                        {item.correctAnswer}
                                                     </span>
                                                 </p>
                                             </div>

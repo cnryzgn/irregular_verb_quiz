@@ -5,5 +5,6 @@ export interface VerbRandomizer {
     pickedVerbVersion: string,
     question: Question,
     isLastQuestion?: boolean
-    correctAnswer: string
+    correctAnswer: string,
+    turkishMeaning: string,
 }

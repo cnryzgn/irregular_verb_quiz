@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { VerbRandomizer, VerbForm, ExamResult, IDifficultyConfig } from "../interfaces";
 import { GameManager } from "../lib/GameManager";
 import { useRouter } from "next/navigation";
+import { checkIsAnswerInvalid, getCorrectVerbAnswer } from "../utils/handleMultiPartAnswer";
 
 type GameStatus = 'playing' | 'correct' | 'wrong' | 'timeout';
 type GameDiff = 'easy' | 'medium' | 'hard' | 'endless_blitz' | 'endless_zen'
@@ -17,6 +18,7 @@ function Exam() {
     // State'ler
     const [currentQuestion, setCurrentQuestion] = useState<VerbRandomizer | null>(null);
     const [status, setStatus] = useState<GameStatus>('playing');
+    const [showHint, setShowHint] = useState(false);
     const [timeLeft, setTimeLeft] = useState(10);
     const [score, setScore] = useState(0);
     const [streak, setStreak] = useState(0);
@@ -82,31 +84,40 @@ function Exam() {
     const handleCheck = () => {
         if (!currentQuestion || !engine.current) return;
 
-        // Doğru cevap kontrolü (Manager'da saklanan orijinal verb listesinden veya question objesinden bakabilirsin)
-        // Senin interfaces yapına göre:
-        const correctAnswer = irregularVerbs.find(v => v[currentQuestion.pickedVerbVersion as keyof VerbForm] === currentQuestion.pickedVerb)?.[currentQuestion.question.verbKey as keyof VerbForm];
+        const correctAnswer = getCorrectVerbAnswer(currentQuestion, irregularVerbs);
+        // Artık split/slash olayını helper fonksiyonumuz hallediyor
+        const isInvalid = checkIsAnswerInvalid(userAnswer, correctAnswer);
 
-        if (userAnswer.trim().toLowerCase() === String(correctAnswer).toLowerCase()) {
+        if (!isInvalid) {
+            // DOĞRU CEVAP
             setStatus('correct');
-            engine.current.updateScore(); // Class içindeki skoru artır
-            setScore(engine.current.score); // UI'daki skoru güncelle
+            engine.current.updateScore();
+            setScore(engine.current.score);
             setStreak(prev => prev + 1);
         } else {
+            // YANLIŞ CEVAP
             setStatus('wrong');
             setStreak(0);
         }
     };
+
+    console.log("quiz");
+    console.log(quizQuestions);
 
     const nextQuestion = () => {
         if (!engine.current) return;
 
         if (!currentQuestion) return;
 
-        const correctAnswer = irregularVerbs.find(v => v[currentQuestion.pickedVerbVersion as keyof VerbForm] === currentQuestion.pickedVerb)?.[currentQuestion.question.verbKey as keyof VerbForm];
+        // const correctAnswer = irregularVerbs.find(v => v[currentQuestion.pickedVerbVersion as keyof VerbForm] === currentQuestion.pickedVerb)?.[currentQuestion.question.verbKey as keyof VerbForm];
+        const correctAnswer = getCorrectVerbAnswer(currentQuestion, irregularVerbs);
+        const isInvalid = checkIsAnswerInvalid(userAnswer, correctAnswer);
+        console.log("correct answer: " + correctAnswer);
 
         const currentQuestionResult: ExamResult = {
             answer: userAnswer.toLowerCase(),
             questionData: {
+                turkishMeaning: 'test',
                 question: currentQuestion?.question.question || "unknown",
                 shownVerb: currentQuestion?.pickedVerb || "unknown",
                 shownVerbForm: currentQuestion?.pickedVerbVersion || "unknown",
@@ -143,6 +154,7 @@ function Exam() {
 
         setUserAnswer("");
         setStatus('playing');
+        setShowHint(false);
 
         // Zorluk ayarındaki timer'ı tekrar kur
         if (questionCountTime) {
@@ -235,6 +247,13 @@ function Exam() {
 
                         {/* Ana Kelime */}
                         <div className="text-center mb-6">
+                            {/* Hint section */}
+                            <div className={`h-8 transition-all duration-500 overflow-hidden ${showHint ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
+                                <span className="px-3 py-1 bg-amber-500/20 text-amber-400 text-xs font-black uppercase tracking-widest rounded-lg border border-amber-500/30">
+                                    HINT: {currentQuestion.questionData?.turkishMeaning || "Searching..."}
+                                </span>
+                            </div>
+
                             <h2 className={`text-7xl md:text-9xl font-black tracking-tighter transition-all duration-500 ${status === 'correct' ? 'text-green-400' :
                                 status === 'wrong' ? 'text-red-400' :
                                     status === 'timeout' ? 'text-orange-400' :
@@ -314,7 +333,14 @@ function Exam() {
                                 value={userAnswer}
                                 autoFocus
                                 onChange={(e) => setUserAnswer(e.target.value)}
-                                onKeyDown={(e) => e.key === 'Enter' && handleCheck()}
+                                // onKeyDown={(e) => e.key === 'Enter' && handleCheck()}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') handleCheck();
+                                    if (e.key === ',') {
+                                        e.preventDefault(); // Virgülün input içine yazılmasını engeller
+                                        setShowHint(true);
+                                    }
+                                }}
                                 placeholder={`Type the ${currentQuestion.question.verbKey} form...`}
                                 className="flex-1 bg-transparent px-8 py-5 text-white outline-none text-xl font-semibold placeholder:text-slate-500 tracking-wide"
                             />

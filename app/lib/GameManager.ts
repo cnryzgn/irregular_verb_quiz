@@ -73,6 +73,7 @@ export class GameManager implements IGameManager {
     public randomQuestionGenerate(): VerbRandomizer {
         const randomIndex = Math.floor(Math.random() * this.irregularVerbs.length);
         const randomVerb = this.irregularVerbs[randomIndex];
+        const { turkishMeaning }= this.irregularVerbs[randomIndex]
 
         const versions: Array<'v1' | 'v2' | 'v3'> = ['v1', 'v2', 'v3'];
         const randomVersionKey = versions[Math.floor(Math.random() * 3)];
@@ -85,7 +86,8 @@ export class GameManager implements IGameManager {
             pickedVerb: verbValue,
             pickedVerbVersion: randomVersionKey,
             question,
-            correctAnswer
+            correctAnswer,
+            turkishMeaning
         };
     }
 
