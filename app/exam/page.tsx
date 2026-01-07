@@ -250,7 +250,7 @@ function Exam() {
                             {/* Hint section */}
                             <div className={`h-8 transition-all duration-500 overflow-hidden ${showHint ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
                                 <span className="px-3 py-1 bg-amber-500/20 text-amber-400 text-xs font-black uppercase tracking-widest rounded-lg border border-amber-500/30">
-                                    HINT: {currentQuestion.questionData?.turkishMeaning || "Searching..."}
+                                    HINT: {currentQuestion.turkishMeaning || "Searching..."}
                                 </span>
                             </div>
 
