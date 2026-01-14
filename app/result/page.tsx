@@ -8,7 +8,7 @@ import Link from "next/link";
 interface ExamQuestion {
     answer: string;
     timeLeft: number;
-    isInvalidAnswer: boolean; // Not: Genelde 'true' ise yanlış kabul edilir
+    isInvalidAnswer: boolean;
     correctAnswer: string,
     questionData: {
         shownVerb: string;

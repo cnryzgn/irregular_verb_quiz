@@ -168,152 +168,121 @@ function Exam() {
 
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-[80vh] gap-8 mt-10 px-4">
+        <div className="flex flex-col items-center justify-center min-h-[85vh] gap-4 md:gap-8 mt-4 md:mt-10 px-4 w-full max-w-4xl mx-auto">
             {/* ÜST PANEL: Score, Timer ve Streak */}
-            <div className="flex gap-6 w-full max-w-2xl justify-between px-2">
+            <div className="flex flex-row items-center justify-between w-full max-w-2xl px-2 gap-2 md:gap-6">
                 {/* Score Card */}
-                <div className="group relative bg-white/5 backdrop-blur-sm px-6 py-4 rounded-2xl border border-white/10 hover:border-indigo-400/30 transition-all duration-300">
-                    <div className="flex flex-col">
-                        <span className="text-slate-500 text-[10px] font-black uppercase tracking-[0.2em] mb-1 flex items-center gap-1.5">
-                            <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                <div className="flex-1 bg-white/5 backdrop-blur-sm px-3 py-3 md:px-6 md:py-4 rounded-xl md:rounded-2xl border border-white/10">
+                    <div className="flex flex-col items-start">
+                        <span className="text-slate-500 text-[8px] md:text-[10px] font-black uppercase tracking-widest mb-1 flex items-center gap-1">
+                            <svg className="w-2 h-2 md:w-3 md:h-3" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                             </svg>
                             Score
                         </span>
-                        <span className="text-3xl font-black bg-gradient-to-r from-indigo-400 to-slate-400 bg-clip-text text-transparent">{score}</span>
+                        <span className="text-xl md:text-3xl font-black bg-gradient-to-r from-indigo-400 to-slate-400 bg-clip-text text-transparent">{score}</span>
                     </div>
                 </div>
 
-                {/* Timer */}
+                {/* Timer - Mobilde biraz küçültüldü */}
                 {questionCountTime && (
-                    <div className="relative flex items-center justify-center">
-                        <svg className="w-20 h-20 transform -rotate-90">
-                            <circle cx="40" cy="40" r="34" stroke="currentColor" strokeWidth="5" fill="transparent" className="text-white/5" />
+                    <div className="relative flex items-center justify-center scale-75 md:scale-100">
+                        <svg className="w-16 h-16 md:w-20 md:h-20 transform -rotate-90">
+                            <circle cx="32 md:40" cy="32 md:40" r="28 md:34" stroke="currentColor" strokeWidth="4 md:5" fill="transparent" className="text-white/5" />
                             <circle
-                                cx="40" cy="40" r="34" stroke="currentColor" strokeWidth="5" fill="transparent"
+                                cx="40" cy="40" r="34"
+                                stroke="currentColor" strokeWidth="5" fill="transparent"
                                 strokeDasharray={213.6}
                                 strokeDashoffset={213.6 - (213.6 * timeLeft) / questionCountTime}
                                 strokeLinecap="round"
                                 className={`transition-all duration-1000 ${timeLeft <= 3 ? 'text-red-500' : 'text-indigo-500'}`}
                             />
                         </svg>
-                        <span className={`absolute font-black text-2xl ${timeLeft <= 3 ? 'text-red-500 animate-pulse' : 'text-white'}`}>
+                        <span className={`absolute font-black text-xl md:text-2xl ${timeLeft <= 3 ? 'text-red-500 animate-pulse' : 'text-white'}`}>
                             {timeLeft}
                         </span>
                     </div>
                 )}
 
                 {/* Streak Card */}
-                <div className="group relative bg-white/5 backdrop-blur-sm px-6 py-4 rounded-2xl border border-white/10 hover:border-indigo-400/30 transition-all duration-300">
+                <div className="flex-1 bg-white/5 backdrop-blur-sm px-3 py-3 md:px-6 md:py-4 rounded-xl md:rounded-2xl border border-white/10">
                     <div className="flex flex-col items-end">
-                        <span className="text-slate-500 text-[10px] font-black uppercase tracking-[0.2em] mb-1 flex items-center gap-1.5">
-                            <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                        <span className="text-slate-500 text-[8px] md:text-[10px] font-black uppercase tracking-widest mb-1 flex items-center gap-1">
+                            <svg className="w-2 h-2 md:w-3 md:h-3" fill="currentColor" viewBox="0 0 20 20">
                                 <path fillRule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clipRule="evenodd" />
                             </svg>
                             Streak
                         </span>
-                        <span className="text-3xl font-black bg-gradient-to-r from-indigo-400 to-slate-400 bg-clip-text text-transparent">x{streak}</span>
+                        <span className="text-xl md:text-3xl font-black bg-gradient-to-r from-indigo-400 to-slate-400 bg-clip-text text-transparent">x{streak}</span>
                     </div>
                 </div>
             </div>
 
-            <div className="w-full max-w-2xl space-y-6">
+            <div className="w-full max-w-2xl space-y-4 md:space-y-6">
                 {/* ANA KART */}
-                <div className={`relative p-10 md:p-14 bg-white/5 backdrop-blur-sm rounded-[2.5rem] border-2 transition-all duration-700 shadow-2xl overflow-hidden
+                <div className={`relative p-8 md:p-14 bg-white/5 backdrop-blur-sm rounded-[2rem] md:rounded-[2.5rem] border-2 transition-all duration-700 shadow-2xl overflow-hidden
       ${status === 'correct' ? 'border-green-500/40' :
                         status === 'wrong' ? 'border-red-500/40' :
                             status === 'timeout' ? 'border-orange-500/40' : 'border-white/10'}`}
                 >
-                    {/* Subtle Background Effect */}
-                    {status !== 'playing' && (
-                        <div className={`absolute inset-0 opacity-5 ${status === 'correct' ? 'bg-green-500' :
-                            status === 'wrong' ? 'bg-red-500' :
-                                'bg-orange-500'
-                            }`}></div>
-                    )}
-
                     <div className="relative z-10">
                         {/* Üst Bilgi */}
-                        <div className="flex justify-between items-center mb-12">
-                            <span className="px-4 py-2 bg-white/5 backdrop-blur-sm rounded-full text-[11px] font-black text-indigo-400 uppercase tracking-[0.25em] border border-white/10">
+                        <div className="flex justify-between items-center mb-6 md:mb-12">
+                            <span className="px-3 py-1.5 md:px-4 md:py-2 bg-white/5 backdrop-blur-sm rounded-full text-[9px] md:text-[11px] font-black text-indigo-400 uppercase tracking-widest border border-white/10">
                                 {currentQuestion.pickedVerbVersion} Form
                             </span>
                             {quizType !== 'endless' && (
-                                <span className="px-4 py-2 bg-white/5 backdrop-blur-sm rounded-full text-[11px] font-black text-slate-400 uppercase tracking-[0.2em]">
+                                <span className="px-3 py-1.5 md:px-4 md:py-2 bg-white/5 backdrop-blur-sm rounded-full text-[9px] md:text-[11px] font-black text-slate-400 uppercase tracking-widest">
                                     {currentStep} / {totalSteps}
                                 </span>
                             )}
                         </div>
 
                         {/* Ana Kelime */}
-                        <div className="text-center mb-6">
+                        <div className="text-center mb-4 md:mb-6">
                             {/* Hint section */}
                             <div className={`h-8 transition-all duration-500 overflow-hidden ${showHint ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
-                                <span className="px-3 py-1 bg-amber-500/20 text-amber-400 text-xs font-black uppercase tracking-widest rounded-lg border border-amber-500/30">
+                                <span className="px-3 py-1 bg-amber-500/20 text-amber-400 text-[10px] md:text-xs font-black uppercase tracking-widest rounded-lg border border-amber-500/30">
                                     HINT: {currentQuestion.turkishMeaning || "Searching..."}
                                 </span>
                             </div>
 
-                            <h2 className={`text-7xl md:text-9xl font-black tracking-tighter transition-all duration-500 ${status === 'correct' ? 'text-green-400' :
+                            <h2 className={`text-5xl md:text-9xl font-black tracking-tighter transition-all duration-500 ${status === 'correct' ? 'text-green-400' :
                                 status === 'wrong' ? 'text-red-400' :
                                     status === 'timeout' ? 'text-orange-400' :
                                         'bg-gradient-to-r from-indigo-400 to-slate-400 bg-clip-text text-transparent'
                                 }`}>
                                 {currentQuestion.pickedVerb}
                             </h2>
-                            <p className="mt-6 text-slate-400 font-semibold text-xl tracking-wide">
+                            <p className="mt-4 md:mt-6 text-slate-400 font-semibold text-lg md:text-xl tracking-wide">
                                 {currentQuestion.question.question}
                             </p>
                         </div>
 
                         {/* SONUÇ PANELİ */}
                         {['correct', 'wrong', 'timeout'].includes(status) && (
-                            <div className="mt-14 pt-10 border-t border-white/10 animate-in fade-in slide-in-from-bottom-4 duration-700">
-                                <div className="flex flex-col items-center gap-8">
+                            <div className="mt-8 md:mt-14 pt-6 md:pt-10 border-t border-white/10 animate-in fade-in slide-in-from-bottom-4 duration-700">
+                                <div className="flex flex-col items-center gap-6 md:gap-8">
                                     <div className="text-center">
-                                        <div className={`inline-flex items-center gap-3 px-6 py-3 rounded-2xl mb-4 border backdrop-blur-sm ${status === 'correct' ? 'bg-green-500/10 border-green-400/30' : 'bg-red-500/10 border-red-400/30'
-                                            }`}>
-                                            {status === 'correct' ? (
-                                                <svg className="w-6 h-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                </svg>
-                                            ) : (
-                                                <svg className="w-6 h-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                </svg>
-                                            )}
-                                            <span className={`text-sm font-black uppercase tracking-[0.3em] ${status === 'correct' ? 'text-green-400' : 'text-red-400'
-                                                }`}>
+                                        <div className={`inline-flex items-center gap-3 px-6 py-3 rounded-2xl mb-4 border backdrop-blur-sm ${status === 'correct' ? 'bg-green-500/10 border-green-400/30' : 'bg-red-500/10 border-red-400/30'}`}>
+                                            <span className={`text-xs md:text-sm font-black uppercase tracking-widest ${status === 'correct' ? 'text-green-400' : 'text-red-400'}`}>
                                                 {status === 'correct' ? '✦ Perfect ✦' : '✦ Keep Going ✦'}
                                             </span>
                                         </div>
                                         {status !== 'correct' && (
-                                            <div className="text-white text-2xl font-bold">
-                                                Correct answer: <span className="text-green-400">{currentQuestion.correctAnswer}</span>
+                                            <div className="text-white text-xl md:text-2xl font-bold">
+                                                Answer: <span className="text-green-400">{currentQuestion.correctAnswer}</span>
                                             </div>
                                         )}
                                     </div>
 
-                                    {/* Final Mesajı */}
-                                    {currentQuestion.isLastQuestion && (
-                                        <div className="bg-indigo-500/10 px-8 py-4 rounded-3xl border border-indigo-400/30 backdrop-blur-sm">
-                                            <p className="text-indigo-300 text-sm font-black uppercase tracking-[0.3em] text-center flex items-center gap-2 justify-center">
-                                                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                                </svg>
-                                                Quiz Completed!
-                                            </p>
-                                        </div>
-                                    )}
-
                                     <button
                                         onClick={nextQuestion}
-                                        className="group relative w-full overflow-hidden rounded-3xl bg-white text-black py-6 font-black text-lg transition-all hover:scale-[1.02] active:scale-95"
+                                        className="group relative w-full overflow-hidden rounded-2xl md:rounded-3xl bg-white text-black py-4 md:py-6 font-black text-base md:text-lg transition-all active:scale-95"
                                     >
-                                        <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-slate-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                                        <span className="relative z-10 group-hover:text-white flex items-center justify-center gap-3 tracking-wide transition-colors">
-                                            {currentQuestion.isLastQuestion ? 'SEE MY FINAL SCORE' : 'NEXT VERB'}
-                                            <svg className="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <span className="relative z-10 flex items-center justify-center gap-3 tracking-wide">
+                                            {currentQuestion.isLastQuestion ? 'FINAL SCORE' : 'NEXT VERB'}
+                                            <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                             </svg>
                                         </span>
@@ -324,32 +293,59 @@ function Exam() {
                     </div>
                 </div>
 
+                {/* INPUT ALANI - Responsive Tasarım */}
                 {/* INPUT ALANI */}
                 {status === 'playing' && (
-                    <div className="animate-in fade-in zoom-in duration-500">
-                        <div className="bg-white/5 backdrop-blur-sm p-2 rounded-[2.5rem] border border-white/10 flex items-center gap-2 hover:border-indigo-400/30 transition-all">
-                            <input
-                                type="text"
-                                value={userAnswer}
-                                autoFocus
-                                onChange={(e) => setUserAnswer(e.target.value)}
-                                // onKeyDown={(e) => e.key === 'Enter' && handleCheck()}
-                                onKeyDown={(e) => {
-                                    if (e.key === 'Enter') handleCheck();
-                                    if (e.key === ',') {
-                                        e.preventDefault(); // Virgülün input içine yazılmasını engeller
-                                        setShowHint(true);
-                                    }
-                                }}
-                                placeholder={`Type the ${currentQuestion.question.verbKey} form...`}
-                                className="flex-1 bg-transparent px-8 py-5 text-white outline-none text-xl font-semibold placeholder:text-slate-500 tracking-wide"
-                            />
-                            <button
-                                onClick={handleCheck}
-                                className="bg-white text-black h-16 px-10 rounded-[2rem] font-black hover:bg-gradient-to-r hover:from-indigo-500 hover:to-slate-500 hover:text-white transition-all active:scale-95"
-                            >
-                                CHECK
-                            </button>
+                    <div className="animate-in fade-in zoom-in duration-500 w-full">
+                        <div className="flex flex-col gap-2">
+                            {/* Küçük Etiket: Sadece mobilde daha belirgin olması için */}
+                            <span className="ml-4 text-[10px] font-black text-indigo-400/60 uppercase tracking-[0.2em] md:hidden">
+                                Your Answer
+                            </span>
+
+                            <div className={`
+                relative flex flex-col md:flex-row items-stretch md:items-center gap-2 p-2 
+                rounded-[2rem] md:rounded-[2.5rem] transition-all duration-300
+                bg-white/[0.03] backdrop-blur-md border-2
+                ${userAnswer ? 'border-indigo-500/40 shadow-[0_0_20px_rgba(99,102,241,0.1)]' : 'border-white/10'}
+                focus-within:border-indigo-400/50 focus-within:bg-white/[0.06]
+                focus-within:shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)]
+            `}>
+                                <input
+                                    type="text"
+                                    value={userAnswer}
+                                    autoFocus
+                                    onChange={(e) => setUserAnswer(e.target.value)}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter') handleCheck();
+                                        if (e.key === ',' || e.key.toLowerCase() === 'i') {
+                                            if (userAnswer === "") {
+                                                e.preventDefault();
+                                                setShowHint(true);
+                                            }
+                                        }
+                                    }}
+                                    placeholder={currentQuestion.question.verbKey + " form..."}
+                                    className="flex-1 bg-transparent px-6 py-5 md:px-8 md:py-5 text-white outline-none text-xl md:text-xl font-bold placeholder:text-slate-600 tracking-wide text-center md:text-left"
+                                />
+
+                                <button
+                                    onClick={handleCheck}
+                                    className={`
+                        h-14 md:h-16 px-10 rounded-[1.5rem] md:rounded-[2rem] font-black tracking-widest transition-all active:scale-95
+                        ${userAnswer.length > 0
+                                            ? 'bg-indigo-500 text-white shadow-[0_0_15px_rgba(99,102,241,0.4)]'
+                                            : 'bg-white text-black'}
+                    `}
+                                >
+                                    CHECK
+                                </button>
+                            </div>
+
+                            {/* İpucu Hatırlatıcı */}
+                            <p className="text-center text-[10px] text-slate-500 font-medium md:hidden">
+                                Tap 'i' for hint
+                            </p>
                         </div>
                     </div>
                 )}
