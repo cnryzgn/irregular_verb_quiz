@@ -316,20 +316,23 @@ function Exam() {
                 {[1, 2, 3].map((v) => {
                   const isActive =
                     currentQuestion.pickedVerbVersion === `v${v}`;
-                  const colors = {
+
+                  // Hata veren kısım burasıydı, Record ekleyerek düzelttik:
+                  const colors: Record<number, string> = {
                     1: "shadow-indigo-500/50 bg-indigo-500 border-indigo-400",
                     2: "shadow-violet-500/50 bg-violet-500 border-violet-400",
                     3: "shadow-fuchsia-500/50 bg-fuchsia-500 border-fuchsia-400",
                   };
+
                   return (
                     <div key={v} className="flex items-center">
                       <div
                         className={`w-10 h-10 md:w-14 md:h-14 rounded-full flex items-center justify-center font-black text-sm md:text-lg transition-all duration-500 border-2
-                                        ${
-                                          isActive
-                                            ? `${colors[v]} text-white scale-110 shadow-[0_0_20px_rgba(0,0,0,0.2)] ring-4 ring-white/10`
-                                            : "bg-white/5 border-white/5 text-slate-600 opacity-40"
-                                        }`}
+          ${
+            isActive
+              ? `${colors[v]} text-white scale-110 shadow-[0_0_20px_rgba(0,0,0,0.2)] ring-4 ring-white/10`
+              : "bg-white/5 border-white/5 text-slate-600 opacity-40"
+          }`}
                       >
                         V{v}
                         {isActive && (
